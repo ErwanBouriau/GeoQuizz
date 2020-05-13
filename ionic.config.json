@@ -1,0 +1,7 @@
+{
+  "name": "GeoQuizz",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
