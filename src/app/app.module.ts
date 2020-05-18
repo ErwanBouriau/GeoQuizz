@@ -9,9 +9,15 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { QuizzPlacesComponent } from './components/quizz-places/quizz-places.component';
+import { QuizzCountriesComponent } from './components/quizz-countries/quizz-countries.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent, 
+    QuizzPlacesComponent,
+    QuizzCountriesComponent
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
