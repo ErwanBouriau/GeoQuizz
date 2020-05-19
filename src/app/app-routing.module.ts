@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { QuizzPlacesComponent } from './components/quizz-places/quizz-places.component';
+import { QuizzCountriesComponent } from './components/quizz-countries/quizz-countries.component';
 
 const routes: Routes = [
   {
@@ -15,6 +17,20 @@ const routes: Routes = [
     path: 'quizz',
     loadChildren: () => import('./quizz/quizz.module').then( m => m.QuizzPageModule)
   },
+  {
+    path: 'quizz',
+    children: [
+      {
+        path: 'places',
+        component: QuizzPlacesComponent
+      },
+      {
+        path: 'countries',
+        component: QuizzCountriesComponent
+      },
+    ]
+  },
+
 ];
 
 @NgModule({
