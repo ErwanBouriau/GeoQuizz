@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./quizz.page.scss'],
 })
 export class QuizzPage implements OnInit {
+  public difficulty: number = 4;
 
   constructor() {}
 

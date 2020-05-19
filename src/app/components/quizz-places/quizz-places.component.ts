@@ -10,7 +10,7 @@ import { Country } from 'src/app/classes/country';
   styleUrls: ['./quizz-places.component.scss'],
 })
 export class QuizzPlacesComponent implements OnInit {
-  public manche: number = 1; // représente le nombre de la manche actuelle du quizz
+  public manche: number; // représente le nombre de la manche actuelle du quizz
   public questions: any[] = []; // représente les questions du quizz
   public questionCourrante: any = null; // la question courrante du quizz
   public reponses: any[] = []; // les reponses à la question courrante
@@ -21,13 +21,15 @@ export class QuizzPlacesComponent implements OnInit {
 
   constructor(private _randomService: RandomService, private _recordService: RecordService, private route: ActivatedRoute) {
     // on récupère les paramètres dans la route 
-    route.params.subscribe(params => {
+    route.queryParams.subscribe(params => {
       if (params.difficulty) this.difficulte = params.difficulty;
       else this.difficulte = 4;
     })
    }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     this.initValues();
   }
 
@@ -35,9 +37,7 @@ export class QuizzPlacesComponent implements OnInit {
    * Met en place un quiz sur les lieux (deviner le pays ou se trouve le lieu)
    */
   initValues(): void {
-    this.manche = 1;
-    console.log(this.manche);
-    
+    this.manche = 0;
     this.bonneReponses = 0;
     this.repondu = false;
     this._recordService.getRecords().subscribe(result => {
@@ -62,8 +62,8 @@ export class QuizzPlacesComponent implements OnInit {
 
   nextRound(): void {
     this.manche++;
-    if (this.manche < 10) {
-      this.questionCourrante = this.questions[this.manche - 1];
+    if (this.manche <= 10) {
+      this.questionCourrante = this.questions[this.manche];
       this.generateReponses();
       this.repondu = false;
     }

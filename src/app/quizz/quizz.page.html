@@ -1,5 +1,15 @@
 <ion-content>
-	<ion-button routerLink="/quizz/places">Places Quizz</ion-button>
+	<ion-item>
+		<ion-label>Difficulty</ion-label>
+		<ion-select value="difficulty" [(ngModel)]="difficulty">
+			<ion-select-option value="4">4</ion-select-option>
+			<ion-select-option value="5">5</ion-select-option>
+			<ion-select-option value="6">6</ion-select-option>
+			<ion-select-option value="7">7</ion-select-option>
+			<ion-select-option value="8">8</ion-select-option>
+		</ion-select>
+	</ion-item>
+	<ion-button routerLink="/quizz/places" [queryParams]="{difficulty: difficulty}">Places Quizz</ion-button>
 	<ion-button routerLink="/quizz/countries">Countries Quizz</ion-button>
 	<ion-button routerLink="/home">Home</ion-button>
 </ion-content>
