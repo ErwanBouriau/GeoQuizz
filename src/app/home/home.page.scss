@@ -1,27 +1,51 @@
+@keyframes animatedBackground {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 0 5000px;
+    }
+}
+
 #container {
-  text-align: center;
+    text-align: center;
+    height: 100vh;
+    background: #0F719E;
+    background-image: url("/assets/landShape.png");
+    background-position: 0px 0px;
+    background-repeat: repeat-y;
+    background-size: contain;
+    animation: animatedBackground 120s linear infinite alternate;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+    p {
+        font-size: 16px;
+        line-height: 22px;
+        color: #8c8c8c;
+        margin: 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    strong {
+        font-size: 20px;
+        line-height: 26px;
+    }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+#logoHome {
+    max-height: 35vh;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+#buttonContainer {
+    display: block;
+    line-height: 3;
 
-  color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+    .homeButton {
+        font-size: 30px;
+        width: 30%;
+        min-width: 225px;
+    }
 }
