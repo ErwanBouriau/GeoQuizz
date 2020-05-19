@@ -65,5 +65,18 @@ export class RandomService {
 
     return result;
   }
+
+  /**
+   * Permet de mélanger les éléments d'un tableau
+   * @param array le tableau à mélanger
+   */
+  public melangeTableau(array: any[]): void {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+  }
   
 }
