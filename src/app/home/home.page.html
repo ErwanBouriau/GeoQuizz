@@ -1,32 +1,26 @@
 <ion-content [fullscreen]="true">
-
-  <div id="container" style="height: 100%; background: linear-gradient(#1F8EC3, #0F719E);">
-    <ion-grid>
-      <ion-row style="margin-bottom: 100px;">
-        <ion-col>
-          <div>
-            <h1 style="font-size: 50px; font-weight: 1000; color: whitesmoke;">GeoQuizz</h1>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <div>
-            <ion-button style="font-size: 30px;">Quiz</ion-button>
-          </div>
-        </ion-col>
-        <ion-col>
-          <div>
-            <ion-button routerLink="/geoguesser" style="font-size: 30px;">GeoGuesser</ion-button>
-          </div>
-        </ion-col>
-        <ion-col>
-          <div>
-            <ion-button style="font-size: 30px;">A propos</ion-button>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-  
+    <div id="container">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <div>
+                        <img id="logoHome" src="../assets/logoGeoquizz.png" alt="GeoQuizz" />
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row id="buttonContainer">
+                <ion-col>
+                    <div>
+                        <ion-button class="homeButton" routerLink="/quizz">Quiz</ion-button>
+                    </div>
+                </ion-col>
+                <ion-col>
+                    <div>
+                        <ion-button class="homeButton" routerLink="/geoguesser">GeoGuesser</ion-button>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
 </ion-content>
+
