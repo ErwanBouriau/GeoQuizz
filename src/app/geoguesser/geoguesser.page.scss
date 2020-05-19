@@ -1,0 +1,39 @@
+.titre {
+    text-align: center; 
+    font-size: 40px; 
+    font-weight: 1000; 
+    color: whitesmoke; 
+    margin: 0;
+}
+
+.round { 
+    font-size: 30px; 
+    font-weight: 100; 
+    color: whitesmoke; 
+    margin: 0;
+}
+
+.score {
+    position: absolute; 
+    z-index: 401; 
+    left: 36%; 
+    bottom: 30px; 
+    border-radius: 10px; 
+    background-color: white; 
+    padding: 10px;
+    text-align: center;
+}
+
+.btn-valider {
+    position: absolute; 
+    z-index: 401; 
+    left: 47%; 
+    bottom: 20px;
+}
+
+.img-map {
+    position: absolute; 
+    z-index: 401; 
+    right: 10px; 
+    max-height: 200px;
+}

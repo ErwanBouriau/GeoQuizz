@@ -30,6 +30,11 @@ const routes: Routes = [
       },
     ]
   },
+  {
+    path: 'geoguesser',
+    loadChildren: () => import('./geoguesser/geoguesser.module').then( m => m.GeoguesserPageModule)
+  },
+];
 
 ];
 
