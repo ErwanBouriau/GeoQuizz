@@ -10,7 +10,11 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'geoguesser',
+    loadChildren: () => import('./geoguesser/geoguesser.module').then( m => m.GeoguesserPageModule)
   },
+
 ];
 
 @NgModule({
