@@ -4,6 +4,7 @@ import { RandomService } from 'src/app/services/random.service';
 import { RecordService } from 'src/app/services/record.service';
 import { ActivatedRoute } from '@angular/router';
 import { isDeepStrictEqual } from 'util';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-quizz-countries',
@@ -22,7 +23,7 @@ export class QuizzCountriesComponent implements OnInit {
   public correct: boolean; // représente une bonne réponse ou non du joueur à la réponse courrante
   public difficulte: number;
 
-  constructor(private _randomService: RandomService, private _recordService: RecordService, private route: ActivatedRoute) {
+  constructor(private _randomService: RandomService, private _recordService: RecordService, private _storageService: StorageService, private route: ActivatedRoute) {
     // on récupère les paramètres dans la route 
     route.queryParams.subscribe(params => {
       if (params.difficulty) this.difficulte = params.difficulty;
@@ -43,13 +44,11 @@ export class QuizzCountriesComponent implements OnInit {
     this.manche = 0;
     this.bonneReponses = 0;
     this.repondu = false;
-    this._recordService.getCountries().subscribe(result => {
-      this.questions = this._randomService.randomCountries(result.facets[0].facets, 10);
-      this.questionCourrante = this.questions[0];
-      console.log('questions =>', this.questions);
-      console.log('questions courrante =>', this.questionCourrante);
-      this.generateReponses();
-    });
+    this.questions = this._randomService.randomCountries(this._storageService.getItem('countries'), 10);
+    this.questionCourrante = this.questions[0];
+    console.log('questions =>', this.questions);
+    console.log('questions courrante =>', this.questionCourrante);
+    this.generateReponses();
   }
 
   validate() {
@@ -72,7 +71,7 @@ export class QuizzCountriesComponent implements OnInit {
 
   nextRound(): void {
     this.manche++;
-    if (this.manche <= 10) {
+    if (this.manche < 10) {
       this.questionCourrante = this.questions[this.manche];
       this.generateReponses();
       this.repondu = false;
@@ -84,21 +83,18 @@ export class QuizzCountriesComponent implements OnInit {
    * Permet de générer les réponses à la question courrante
    */
   generateReponses(): void {
-    //on récupère les records
-    this._recordService.getRecords().subscribe(result => {
-      let nbReponsesJustes = Math.floor(Math.random() * (this.difficulte - 3)) + 1;
+    let nbReponsesJustes = Math.floor(Math.random() * (this.difficulte - 3)) + 1;
 
-      // on prend des records au hasard
-      this.reponses = this._randomService.randomRecords(result.records, this.difficulte - nbReponsesJustes);
-      // on ajoute des réponses justes
-      this._recordService.getRecordsByCountry(this.questionCourrante.value).subscribe(result => {
+    // on prend des records au hasard
+    this.reponses = this._randomService.randomRecords(this._storageService.getItem('records'), this.difficulte - nbReponsesJustes);
+    // on ajoute des réponses justes
+    this._recordService.getRecordsByCountry(this.questionCourrante.value).subscribe(result => {
       this.reponsesCorrectes = this._randomService.randomRecords(result.records, nbReponsesJustes);
       this.reponses = this.reponses.concat(this.reponsesCorrectes);
-      })
-      // on mélange le tableau de réponses
-      this._randomService.melangeTableau(this.reponses);
-      console.log('reponse =>', this.reponses);
     })
+    // on mélange le tableau de réponses
+    this._randomService.melangeTableau(this.reponses);
+    console.log('reponse =>', this.reponses);
   }
 
   ajoutReponse(event, reponse) {

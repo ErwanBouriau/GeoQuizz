@@ -1,5 +1,5 @@
 <div *ngIf="manche <= 9">
-    <h2>Manche {{ manche + 1 }} / 10 </h2>
+    <h2>Round {{ manche + 1 }} / 10 </h2>
     <div *ngIf="repondu">
       <h3 *ngIf="correct">Correct !</h3>
       <h3 *ngIf="!correct">Wrong ! The answer is {{ questionCourrante?.record.fields.states[0] }}</h3>
@@ -9,11 +9,12 @@
 
 	<ion-button *ngFor="let rep of reponses" (click)="validate(rep.value)" [disabled]="repondu">{{rep.value}}</ion-button>
 
-	<ion-button (click)="nextRound()" *ngIf="repondu && manche <= 9" color="success">{{ (manche < 9) ? 'next' : 'end'}}</ion-button>
+  <ion-button (click)="nextRound()" *ngIf="repondu && manche <= 9" color="success">{{ (manche < 9) ? 'next' : 'end'}}</ion-button>
+  <ion-button routerLink="/home" color="danger">Home</ion-button>	
 
 </div>
 <div *ngIf="manche > 9">
-  <h3> You have {{ bonneReponses }} correct answers </h3>
+  <h3> You have {{ bonneReponses }}/10 correct answers </h3>
   <ion-button routerLink="/quizz">New Quiz</ion-button>	
   <ion-button routerLink="/home">Home</ion-button>	
 </div>
