@@ -1,4 +1,4 @@
-<div id="quizzPlacePages" *ngIf="manche >= 9">
+<div id="quizzPlacePages" *ngIf="manche <= 9">
     <h2 class="infoText alignCenter">Round {{ manche + 1 }} / 10 </h2>
     <div *ngIf="repondu">
         <h3 id="goodAnswerText" *ngIf="correct">Correct !</h3>
@@ -24,7 +24,7 @@
         </div>
     </div>
 </div>
-<div id="resultPage" *ngIf="manche < 9">
+<div id="resultPage" *ngIf="manche > 9">
     <div class="alignCenter">
         <h3 class="infoText"> YOU HAVE {{ bonneReponses }}/10 CORRECT ANSWERS </h3>
         <div class="marginLogo">
