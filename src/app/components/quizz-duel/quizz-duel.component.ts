@@ -5,21 +5,19 @@ import { Country } from 'src/app/classes/country';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
-  selector: 'app-quizz-places',
-  templateUrl: './quizz-places.component.html',
-  styleUrls: ['./quizz-places.component.scss'],
+  selector: 'app-quizz-duel',
+  templateUrl: './quizz-duel.component.html',
+  styleUrls: ['./quizz-duel.component.scss'],
 })
-export class QuizzPlacesComponent implements OnInit {
+export class QuizzDuelComponent implements OnInit {
   public manche: number; // représente le nombre de la manche actuelle du quizz
+  public tourJoueur: number = 1 | 2; // le numéro du joueur qui joue
   public questions: any[] = []; // représente les questions du quizz
   public questionCourrante: any = null; // la question courrante du quizz
   public reponses: any[] = []; // les reponses à la question courrante
-  public bonneReponses: number; // le nombre de bonnes réponses du joueur dans la partie
-  public repondu: boolean = false; // représente le fait que le joueur a répondu à la question ou non
-  public correct: boolean; // représente une bonne réponse ou non du joueur à la réponse courrante
+  public scoreJ1: number; // le nombre de bonnes réponses du joueur 1 dans la partie
+  public scoreJ2: number; // le nombre de bonnes réponses du joueur 2 dans la partie
   public difficulte: number;
-
-  countries: Country[] = [];
 
   constructor(private _randomService: RandomService, private _storageService: StorageService, private route: ActivatedRoute) {
     // on récupère les paramètres dans la route 
@@ -29,19 +27,18 @@ export class QuizzPlacesComponent implements OnInit {
     })
    }
 
-  ngOnInit() {}
-
-  ionViewWillEnter() {
+  ngOnInit() {
     this.initValues();
   }
 
-  /**
+   /**
    * Met en place un quiz sur les lieux (deviner le pays ou se trouve le lieu)
    */
   initValues(): void {
     this.manche = 0;
-    this.bonneReponses = 0;
-    this.repondu = false;
+    this.scoreJ1 = 0;
+    this.scoreJ2 = 0;
+    this.tourJoueur = 1;
     this.questions = this._randomService.randomRecords(this._storageService.getItem('records'), 10);
     this.questionCourrante = this.questions[0];
     console.log('questions =>', this.questions);
@@ -50,22 +47,32 @@ export class QuizzPlacesComponent implements OnInit {
   }
 
   validate(reponse) {
-    this.repondu = true;
-    if (this.questionCourrante.record.fields.states.indexOf(reponse) >= 0) {
-      this.bonneReponses++;
-      this.correct = true;
+    if (this.tourJoueur === 1) {
+      if (this.questionCourrante.record.fields.states.indexOf(reponse) >= 0) {
+        this.scoreJ1++;
+      }
+      this.nextRound(1);
     }
     else {
-      this.correct = false;
+      if (this.questionCourrante.record.fields.states.indexOf(reponse) >= 0) {
+        this.scoreJ2++;
+      }
+      this.nextRound(2);
     }
+
   }
 
-  nextRound(): void {
-    this.manche++;
-    if (this.manche < 10) {
-      this.questionCourrante = this.questions[this.manche];
-      this.generateReponses();
-      this.repondu = false;
+  nextRound(joueur: number): void {
+    if (joueur === 1) {
+      this.tourJoueur = 2;
+    }
+    else {
+      this.manche++;
+      if (this.manche < 10) {
+        this.questionCourrante = this.questions[this.manche];
+        this.generateReponses();
+        this.tourJoueur = 1;
+      }
     }
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Map, tileLayer} from "leaflet";
 import { RandomService } from '../services/random.service';
-import { RecordService } from '../services/record.service';
+import { StorageService } from '../services/storage.service';
 
 declare var L: any;
 
@@ -34,7 +34,7 @@ export class GeoguesserPage implements OnInit {
     shadowAnchor: [8, 60],  // the same for the shadow
   });
 
-  constructor(private randomService: RandomService, private recordService: RecordService) { }
+  constructor(private randomService: RandomService, private _storageService: StorageService) { }
 
   ngOnInit() {
 
@@ -71,11 +71,9 @@ export class GeoguesserPage implements OnInit {
   }
 
   randomRecord() {
-    this.recordService.getRecords().subscribe(result =>{
-      this.record = this.randomService.randomRecord(result.records);
-      this.lat = this.record.record.fields.coordinates.lat;
-      this.lon = this.record.record.fields.coordinates.lon;
-    });
+    this.record = this.randomService.randomRecord(this._storageService.getItem('records'));
+    this.lat = this.record.record.fields.coordinates.lat;
+    this.lon = this.record.record.fields.coordinates.lon;
   }
 
   onMapClick(e) {

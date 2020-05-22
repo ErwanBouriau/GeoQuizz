@@ -11,12 +11,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { QuizzPlacesComponent } from './components/quizz-places/quizz-places.component';
 import { QuizzCountriesComponent } from './components/quizz-countries/quizz-countries.component';
+import { QuizzDuelComponent } from './components/quizz-duel/quizz-duel.component';
 
 @NgModule({
   declarations: [
     AppComponent, 
     QuizzPlacesComponent,
-    QuizzCountriesComponent
+    QuizzCountriesComponent,
+    QuizzDuelComponent
   ],
   entryComponents: [],
   imports: [
