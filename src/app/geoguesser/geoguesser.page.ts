@@ -95,7 +95,7 @@ export class GeoguesserPage implements OnInit {
     var southWest = L.latLng(-88.78704664025176, -251.74770753818228),
     northEast = L.latLng(88.78704664025176, 251.74770753818228),
     bounds = L.latLngBounds(southWest, northEast);
-    this.map = new Map('map').setView([46.714410227897154, 3.459646574278397], 3).setMaxBounds(bounds);
+    if (!this.map) this.map = new Map('map').setView([46.714410227897154, 3.459646574278397], 3).setMaxBounds(bounds);
     tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
       noWrap: true,
       minZoom: 2,
