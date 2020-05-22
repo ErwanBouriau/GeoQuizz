@@ -25,13 +25,10 @@ export class GeoguesserPage implements OnInit {
   markerRecord: any;
   ligne: any;
   icon: any = L.icon({
-    iconUrl: 'assets/icon/leaf-green.png',
-    shadowUrl: 'assets/icon/leaf-shadow.png',
+    iconUrl: 'assets/icon/marker-orange.png',
 
-    iconSize:     [30, 75], // size of the icon
-    shadowSize:   [40, 54], // size of the shadow
-    iconAnchor:   [20, 75], // point of the icon which will correspond to marker's location
-    shadowAnchor: [8, 60],  // the same for the shadow
+    iconSize:     [30, 50], // size of the icon
+    iconAnchor:   [16, 50], // point of the icon which will correspond to marker's location
   });
   zoom: boolean = false;
 
