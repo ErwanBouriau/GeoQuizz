@@ -1,0 +1,45 @@
+#resultPage, #quizzPlacePages {
+    background-color: #0F719E !important;
+    height: 100%;
+
+    .alignCenter {
+        text-align: center;
+    }
+
+    .infoText {
+        font-family: 'Segoe Script';
+        color: orange;
+        font-size: 40px;
+    }
+
+    .marginLogo {
+        margin-top: 5%;
+    }
+}
+
+
+#goodAnswerText {
+    color: #2dd36f;
+    text-align: center;
+}
+
+#badAnswerText {
+    color: #eb445a;
+    text-align: center;
+}
+
+.btnQuizz {
+    font-size: 17px;
+    --border-radius: 0;
+    --border-width: 1px;
+    width: 20%;
+    height: 20vh;
+    transition: transform .6s ease-in-out;
+
+    &:hover {
+        transform: scale(1.2);
+        --background: #FFB405;
+        color: white;
+        --border-radius: 10px !important;
+    }
+}
