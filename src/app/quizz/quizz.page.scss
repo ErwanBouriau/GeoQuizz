@@ -7,8 +7,8 @@
     font-size: 17px;
     --border-radius: 0;
     --border-width: 1px;
-    width: 35%;
-    height: 30vh;
+    width: 20%;
+    height: 20vh;
     transition: transform .6s ease-in-out;
 
     &:hover {
@@ -19,15 +19,16 @@
     }
 }
 
-.btnCountries {
+.btnCountrie {
     margin-right: 5%;
+    margin-left: 5%;
 }
 
 #titleChoose {
     text-align: center;
     font-size: 50px;
     color: orange;
-    margin: 6% 0 4% 0;
+    margin: 6% 0 6% 0;
     font-family: 'Segoe Script';
 }
 
