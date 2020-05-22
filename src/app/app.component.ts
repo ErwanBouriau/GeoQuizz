@@ -27,9 +27,17 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-    if (this.storageService.isEmpty()) {
+    if (!this.storageService.isEmpty()) {
+      if (this.storageService.exist('records') && this.storageService.exist('countries')) {}
+      else {
+        this.storageService.clear();
+        this.recordService.getAllRecords();
+        this.recordService.getAllCountries(); 
+      }
+    } 
+    else {
       this.recordService.getAllRecords();
       this.recordService.getAllCountries(); 
-    }    
+    }   
   }
 }

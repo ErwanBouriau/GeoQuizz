@@ -3,6 +3,7 @@ import { RandomService } from 'src/app/services/random.service';
 import { ActivatedRoute } from '@angular/router';
 import { Country } from 'src/app/classes/country';
 import { StorageService } from 'src/app/services/storage.service';
+import { RecordService } from 'src/app/services/record.service';
 
 @Component({
   selector: 'app-quizz-places',
@@ -18,10 +19,10 @@ export class QuizzPlacesComponent implements OnInit {
   public repondu: boolean = false; // représente le fait que le joueur a répondu à la question ou non
   public correct: boolean; // représente une bonne réponse ou non du joueur à la réponse courrante
   public difficulte: number;
+  public imageUrl: string = '';
+  public loading: boolean = true;
 
-  countries: Country[] = [];
-
-  constructor(private _randomService: RandomService, private _storageService: StorageService, private route: ActivatedRoute) {
+  constructor(private _randomService: RandomService, private _recordService: RecordService, private _storageService: StorageService, private route: ActivatedRoute) {
     // on récupère les paramètres dans la route 
     route.queryParams.subscribe(params => {
       if (params.difficulty) this.difficulte = params.difficulty;
@@ -44,6 +45,7 @@ export class QuizzPlacesComponent implements OnInit {
     this.repondu = false;
     this.questions = this._randomService.randomRecords(this._storageService.getItem('records'), 10);
     this.questionCourrante = this.questions[0];
+    this.loadImage(this.questionCourrante.record.fields.id_number);
     console.log('questions =>', this.questions);
     console.log('questions courrante =>', this.questionCourrante);
     this.generateReponses();
@@ -64,6 +66,7 @@ export class QuizzPlacesComponent implements OnInit {
     this.manche++;
     if (this.manche < 10) {
       this.questionCourrante = this.questions[this.manche];
+      this.loadImage(this.questionCourrante.record.fields.id_number);
       this.generateReponses();
       this.repondu = false;
     }
@@ -84,6 +87,23 @@ export class QuizzPlacesComponent implements OnInit {
       // on mélange le tableau de réponses
       this._randomService.melangeTableau(this.reponses);
       console.log('reponse =>', this.reponses);
+  }
+
+  loadImage(id: string) {
+    // on affiche le loader
+    this.loading = true;
+    // on récupère l'image du lieu
+    this._recordService.getImage(id).subscribe(
+      data => console.log('success', data),
+      error => {
+        // on récupère la page html dans l'erreur (on attend du json sauf que c'est du html, pas réussi à changer ça)
+        let domparser = new DOMParser()​​
+        let doc = domparser.parseFromString(error.error.text, 'text/html')
+        let imgs = doc.getElementsByClassName('icaption-img');
+        this.imageUrl = 'https://whc.unesco.org' + imgs[0].getAttribute('data-src');
+        // une fois l'image chargée on enlève le loader
+        this.loading = false;
+      });
   }
 
 }

@@ -4,7 +4,10 @@
       <h3 *ngIf="correct">Correct !</h3>
       <h3 *ngIf="!correct">Wrong ! The answer is {{ questionCourrante?.record.fields.states[0] }}</h3>
     </div>
-	<img src="https://whc.unesco.org/uploads/sites/{{questionCourrante?.record.fields.image_url.filename}}">
+
+  <img src="{{imageUrl}}" *ngIf="!loading">
+  <ion-spinner name="circles" *ngIf="loading"></ion-spinner>
+  
 	<p>{{ questionCourrante?.record.fields.site }}</p>
 
 	<ion-button *ngFor="let rep of reponses" (click)="validate(rep.value)" [disabled]="repondu">{{rep.value}}</ion-button>
