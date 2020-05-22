@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Map, tileLayer} from "leaflet";
 import { RandomService } from '../services/random.service';
 import { StorageService } from '../services/storage.service';
+import { RecordService } from '../services/record.service';
 
 declare var L: any;
 
@@ -30,9 +31,11 @@ export class GeoguesserPage implements OnInit {
     iconSize:     [30, 50], // size of the icon
     iconAnchor:   [16, 50], // point of the icon which will correspond to marker's location
   });
-  zoom: boolean = false;
+  zoom: boolean = true;
+  loading: boolean = true;
+  imageUrl: string = '';
 
-  constructor(private randomService: RandomService, private _storageService: StorageService) { }
+  constructor(private randomService: RandomService, private _recordService: RecordService, private _storageService: StorageService) { }
 
   ngOnInit() {
 
@@ -68,12 +71,14 @@ export class GeoguesserPage implements OnInit {
     if(this.score > 3985) this.score = 4000;
     this.btn = false;
     this.afficheScore = true;
+    this.zoom = false;
   }
 
   randomRecord() {
     this.record = this.randomService.randomRecord(this._storageService.getItem('records'));
     this.lat = this.record.record.fields.coordinates.lat;
     this.lon = this.record.record.fields.coordinates.lon;
+    this.loadImage(this.record.record.fields.id_number);
   }
 
   onMapClick(e) {
@@ -126,4 +131,23 @@ export class GeoguesserPage implements OnInit {
   imageZoom() {
     this.zoom = !this.zoom;
   }
+
+  loadImage(id: string) {
+    // on affiche le loader
+    this.loading = true;
+    this.zoom = true;
+    // on récupère l'image du lieu
+    this._recordService.getImage(id).subscribe(
+      data => console.log('success', data),
+      error => {
+        // on récupère la page html dans l'erreur (on attend du json sauf que c'est du html, pas réussi à changer ça)
+        let domparser = new DOMParser()​​
+        let doc = domparser.parseFromString(error.error.text, 'text/html')
+        let imgs = doc.getElementsByClassName('icaption-img');
+        this.imageUrl = 'https://whc.unesco.org' + imgs[0].getAttribute('data-src');
+        // une fois l'image chargée on enlève le loader
+        this.loading = false;
+      });
+  }
+
 }
