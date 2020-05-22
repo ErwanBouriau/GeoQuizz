@@ -1,0 +1,42 @@
+#choosePage {
+    background-color: #0F719E !important;
+    height: 100%;
+}
+
+.btnQuizz {
+    font-size: 17px;
+    --border-radius: 0;
+    --border-width: 1px;
+    width: 20%;
+    height: 20vh;
+    transition: transform .6s ease-in-out;
+
+    &:hover {
+        transform: scale(1.2);
+        --background: #FFB405;
+        color: white;
+        --border-radius: 10px !important;
+    }
+}
+
+.btnCountrie {
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+#titleChoose {
+    text-align: center;
+    font-size: 50px;
+    color: orange;
+    margin: 6% 0 6% 0;
+    font-family: 'Segoe Script';
+}
+
+#homeBtnContainer {
+    text-align: center;
+    margin-top: 7%;
+}
+
+#homeBtn {
+    width: 25%;
+}

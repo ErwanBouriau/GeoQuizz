@@ -19,7 +19,7 @@
           <img class="img-map" src="https://whc.unesco.org/uploads/sites/{{record?.record.fields.image_url.filename}}" alt="Random picture">
           <div id="map" style="width: 100%; height: 100%;"></div>
           <ion-button *ngIf="btn" (click)="valider()" class="btn-valider">Valider</ion-button>
-          <div *ngIf="afficheScore" class="score">
+          <div *ngIf="afficheScore" class="score" style="color: black;">
             <b>Vous êtes à {{distance}} km de distance, vous avez gagné {{score}} points</b><br>
             <ion-button (click)="suivant()">Suivant</ion-button>
           </div>
