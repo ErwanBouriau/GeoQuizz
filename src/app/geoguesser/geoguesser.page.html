@@ -16,7 +16,8 @@
       </ion-row>
       <ion-row *ngIf="round != 6" style="height: 88vh;">
         <ion-col style="padding: 10px;">
-          <img class="img-map" src="https://whc.unesco.org/uploads/sites/{{record?.record.fields.image_url.filename}}" alt="Random picture">
+          <img (click)="imageZoom()" *ngIf="!zoom" class="img-map" src="https://whc.unesco.org/uploads/sites/{{record?.record.fields.image_url.filename}}" alt="Random picture">
+          <img (click)="imageZoom()" *ngIf="zoom" class="img-map-zoom" src="https://whc.unesco.org/uploads/sites/{{record?.record.fields.image_url.filename}}" alt="Random picture">
           <div id="map" style="width: 100%; height: 100%;"></div>
           <ion-button *ngIf="btn" (click)="valider()" class="btn-valider">Valider</ion-button>
           <div *ngIf="afficheScore" class="score">
