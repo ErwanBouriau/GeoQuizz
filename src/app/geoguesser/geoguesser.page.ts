@@ -25,14 +25,12 @@ export class GeoguesserPage implements OnInit {
   markerRecord: any;
   ligne: any;
   icon: any = L.icon({
-    iconUrl: 'assets/icon/leaf-green.png',
-    shadowUrl: 'assets/icon/leaf-shadow.png',
+    iconUrl: 'assets/icon/marker-orange.png',
 
-    iconSize:     [30, 75], // size of the icon
-    shadowSize:   [40, 54], // size of the shadow
-    iconAnchor:   [20, 75], // point of the icon which will correspond to marker's location
-    shadowAnchor: [8, 60],  // the same for the shadow
+    iconSize:     [30, 50], // size of the icon
+    iconAnchor:   [16, 50], // point of the icon which will correspond to marker's location
   });
+  zoom: boolean = false;
 
   constructor(private randomService: RandomService, private _storageService: StorageService) { }
 
@@ -50,6 +48,7 @@ export class GeoguesserPage implements OnInit {
 
   valider() {
     this.markerRecord = L.marker([this.lat, this.lon]).addTo(this.map);
+    this.map.flyTo(L.latLng(this.lat, this.lon), 5);
     var pointUser = new L.LatLng(this.marker.getLatLng().lat, this.marker.getLatLng().lng);
     var pointReponse = new L.LatLng(this.lat, this.lon);
     var pointList = [pointUser, pointReponse];
@@ -66,6 +65,7 @@ export class GeoguesserPage implements OnInit {
     this.distance = Math.round(this.distance);
     this.score = Math.round(this.score);
     if(this.score < 0) this.score = 0;
+    if(this.score > 3985) this.score = 4000;
     this.btn = false;
     this.afficheScore = true;
   }
@@ -87,8 +87,17 @@ export class GeoguesserPage implements OnInit {
   }
 
   showMap() {
-    this.map = new Map('map').setView([46.878309, 3.273513], 5);
-    tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
+    var southWest = L.latLng(-88.78704664025176, -251.74770753818228),
+    northEast = L.latLng(88.78704664025176, 251.74770753818228),
+    bounds = L.latLngBounds(southWest, northEast);
+    this.map = new Map('map').setView([46.714410227897154, 3.459646574278397], 3).setMaxBounds(bounds);
+    tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+      noWrap: true,
+      minZoom: 2,
+      subdomains:['mt0','mt1','mt2','mt3']
+    }).addTo(this.map);
+
+    //tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}').addTo(this.map);
   }
 
   suivant() {
@@ -112,5 +121,9 @@ export class GeoguesserPage implements OnInit {
     let a = 0.5 - c((lat1-lat2) * p) / 2 + c(lat2 * p) *c((lat1) * p) * (1 - c(((long1- long2) * p))) / 2;
     let dis = (12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
     return dis;
+  }
+
+  imageZoom() {
+    this.zoom = !this.zoom;
   }
 }
