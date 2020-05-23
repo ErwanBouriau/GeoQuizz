@@ -16,7 +16,7 @@
 
         <ion-button (click)="nextRound()" *ngIf="repondu && manche <= 9" color="success">{{ (manche < 9) ? 'next' : 'end'}}</ion-button>
         <ion-button routerLink="/home" color="danger">Home</ion-button>
-        <div class="marginLogo" *ngIf="repondu">
+        <div class="logoCustom" *ngIf="repondu">
             <div *ngIf="correct">
                 <img src="../assets/logoGeoquizzHappy.png" />
             </div>
