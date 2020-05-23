@@ -10,7 +10,6 @@
   
 	    <p>{{ questionCourrante?.record.fields.site }}</p>
     </div>
-	<ion-button *ngFor="let rep of reponses" (click)="validate(rep.value)" [disabled]="repondu">{{rep.value}}</ion-button>
 
     <div class="alignCenter">
         <ion-button *ngFor="let rep of reponses" (click)="validate(rep.value)" [disabled]="repondu">{{rep.value}}</ion-button>
