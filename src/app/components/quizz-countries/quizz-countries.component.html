@@ -1,23 +1,45 @@
-<div *ngIf="manche <= 9">
-  <h2>Round {{  manche + 1  }} / 10 </h2>
-  <div *ngIf="repondu">
-    <h3 *ngIf="correct">Correct !</h3>
-    <div *ngIf="!correct">
-      <h3> Wrong ! Answer(s) : </h3>
-      <div *ngFor="let reponse of reponsesCorrectes"><strong>{{reponse.record.fields.site}}</strong> <br></div>
+<div id="quizzCountriesPages" *ngIf="manche <= 9">
+    <div class="alignCenter">
+        <h2 class="infoText">Round {{  manche + 1  }} / 10 </h2>
+        <div *ngIf="repondu">
+            <h3 id="goodAnswerText" *ngIf="correct">Correct !</h3>
+            <div *ngIf="!correct">
+                <h3 id="badAnswerText"> Wrong ! Answer(s) : </h3>
+                <div *ngFor="let reponse of reponsesCorrectes"><strong>{{reponse.record.fields.site}}</strong> <br></div>
+            </div>
+        </div>
+        <div id="countrieName">
+            <p>{{ questionCourrante?.value }}</p>
+        </div>
+
+        <ion-button *ngFor="let rep of reponses" (click)="ajoutReponse($event, rep)" [disabled]="repondu">{{rep.record.fields.site}}</ion-button>
+        <ion-button *ngIf="!repondu" (click)="validate()" color="success">validate</ion-button>
+
+        <ion-button (click)="nextRound()" *ngIf="repondu && manche <= 9" color="success">{{ (manche < 9) ? 'next' : 'end'}}</ion-button>
+        <ion-button routerLink="/home" color="danger">Home</ion-button>
+
+        <div class="marginLogo" *ngIf="repondu">
+            <div *ngIf="correct">
+                <img src="../assets/logoGeoquizzHappy.png" />
+            </div>
+            <div *ngIf="!correct">
+                <img src="../assets/logoGeoquizzSad.png" />
+            </div>
+        </div>
     </div>
-  </div>
-<p>{{ questionCourrante?.value }}</p>
-
-<ion-button *ngFor="let rep of reponses" (click)="ajoutReponse($event, rep)" [disabled]="repondu">{{rep.record.fields.site}}</ion-button>
-<ion-button *ngIf="!repondu" (click)="validate()" color="success">validate</ion-button>
-
-<ion-button (click)="nextRound()" *ngIf="repondu && manche <= 9" color="success">{{ (manche < 9) ? 'next' : 'end'}}</ion-button>
-<ion-button routerLink="/home" color="danger">Home</ion-button>	
-
 </div>
-<div *ngIf="manche > 9">
-  <h3> You have {{ bonneReponses }}/10 correct answers </h3>
-  <ion-button routerLink="/quizz">New Quiz</ion-button>	
-  <ion-button routerLink="/home">Home</ion-button>	
+<div id="resultPage" *ngIf="manche > 9">
+    <div class="alignCenter">
+        <h3 class="infoText"> You have {{ bonneReponses }}/10 correct answers </h3>
+        <div class="marginLogo">
+            <div *ngIf="bonneReponses >= 5">
+                <img src="../assets/logoGeoquizzHappy.png" />
+            </div>
+            <div *ngIf="bonneReponses <= 5">
+                <img src="../assets/logoGeoquizzSad.png" />
+            </div>
+        </div>
+        <ion-button class="btnQuizz" fill="outline" routerLink="/quizz">New Quiz</ion-button>
+        <ion-button class="btnQuizz" fill="outline" routerLink="/home">Home</ion-button>
+    </div>
 </div>

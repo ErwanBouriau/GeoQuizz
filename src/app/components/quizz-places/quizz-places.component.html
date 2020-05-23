@@ -1,25 +1,44 @@
-<div *ngIf="manche <= 9">
-    <h2>Round {{ manche + 1 }} / 10 </h2>
+<div id="quizzPlacePages" *ngIf="manche <= 9">
+    <h2 class="infoText alignCenter">Round {{ manche + 1 }} / 10 </h2>
     <div *ngIf="repondu">
-      <h3 *ngIf="correct">Correct !</h3>
-      <h3 *ngIf="!correct">Wrong ! The answer is {{ questionCourrante?.record.fields.states[0] }}</h3>
+        <h3 id="goodAnswerText" *ngIf="correct">Correct !</h3>
+        <h3 id="badAnswerText" *ngIf="!correct">Wrong ! The answer is {{ questionCourrante?.record.fields.states[0] }}</h3>
     </div>
-
-  <img src="{{imageUrl}}" *ngIf="!loading">
-  <ion-spinner name="circles" *ngIf="loading"></ion-spinner>
+    <div class="alignCenter">
+      <img src="{{imageUrl}}" *ngIf="!loading">
+      <ion-spinner name="circles" *ngIf="loading"></ion-spinner>
   
-	<p>{{ questionCourrante?.record.fields.site }}</p>
-
+	    <p>{{ questionCourrante?.record.fields.site }}</p>
+    </div>
 	<ion-button *ngFor="let rep of reponses" (click)="validate(rep.value)" [disabled]="repondu">{{rep.value}}</ion-button>
 
-  <ion-button (click)="nextRound()" *ngIf="repondu && manche <= 9" color="success">{{ (manche < 9) ? 'next' : 'end'}}</ion-button>
-  <ion-button routerLink="/home" color="danger">Home</ion-button>	
+    <div class="alignCenter">
+        <ion-button *ngFor="let rep of reponses" (click)="validate(rep.value)" [disabled]="repondu">{{rep.value}}</ion-button>
 
+        <ion-button (click)="nextRound()" *ngIf="repondu && manche <= 9" color="success">{{ (manche < 9) ? 'next' : 'end'}}</ion-button>
+        <ion-button routerLink="/home" color="danger">Home</ion-button>
+        <div class="marginLogo" *ngIf="repondu">
+            <div *ngIf="correct">
+                <img src="../assets/logoGeoquizzHappy.png" />
+            </div>
+            <div *ngIf="!correct">
+                <img src="../assets/logoGeoquizzSad.png" />
+            </div>
+        </div>
+    </div>
 </div>
-<div *ngIf="manche > 9">
-  <h3> You have {{ bonneReponses }}/10 correct answers </h3>
-  <ion-button routerLink="/quizz">New Quiz</ion-button>	
-  <ion-button routerLink="/home">Home</ion-button>	
+<div id="resultPage" *ngIf="manche > 9">
+    <div class="alignCenter">
+        <h3 class="infoText"> YOU HAVE {{ bonneReponses }}/10 CORRECT ANSWERS </h3>
+        <div class="marginLogo">
+            <div *ngIf="bonneReponses >= 5">
+                <img src="../assets/logoGeoquizzHappy.png" />
+            </div>
+            <div *ngIf="bonneReponses <= 5">
+                <img src="../assets/logoGeoquizzSad.png" />
+            </div>
+        </div>
+        <ion-button class="btnQuizz" fill="outline" routerLink="/quizz">New Quiz</ion-button>
+        <ion-button class="btnQuizz" fill="outline" routerLink="/home">Home</ion-button>
+    </div>
 </div>
-
-
