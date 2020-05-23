@@ -1,16 +1,21 @@
-<div *ngIf="manche <= 9">
-  <h2>Round {{ manche + 1 }} / 10 </h2>
-  <h2>Player {{ tourJoueur}}'s turn </h2>
+<div id="quizzVersusPages" *ngIf="manche <= 9">
+    <div class="alignCenter">
+        <h2 class="infoText">Round {{ manche + 1 }} / 10 </h2>
+        <h2 class="textStyle">Player {{ tourJoueur }}'s turn </h2>
 
-<img src="https://whc.unesco.org/uploads/sites/{{questionCourrante?.record.fields.image_url.filename}}">
-<p>{{ questionCourrante?.record.fields.site }}</p>
+        <img src="https://whc.unesco.org/uploads/sites/{{questionCourrante?.record.fields.image_url.filename}}">
+        <p>{{ questionCourrante?.record.fields.site }}</p>
 
-<ion-button *ngFor="let rep of reponses" (click)="validate(rep.value)">{{rep.value}}</ion-button>
-<ion-button routerLink="/home" color="danger">Home</ion-button>	
+        <ion-button *ngFor="let rep of reponses" (click)="validate(rep.value)">{{rep.value}}</ion-button>
+        <ion-button routerLink="/home" color="danger">Home</ion-button>	
+    </div>
 
 </div>
-<div *ngIf="manche > 9">
-<h3> {{ (scoreJ1 > scoreJ2) ? 'Player 1 won !' : (scoreJ1 < scoreJ2) ? 'Player 2 won !' : 'Tie !' }} </h3>
-<ion-button routerLink="/quizz">New Quiz</ion-button>	
-<ion-button routerLink="/home">Home</ion-button>	
+<div id="resultPage" *ngIf="manche > 9">
+    <div class="alignCenter">
+        <h3 class="infoText"> {{ (scoreJ1 > scoreJ2) ? 'Player 1 won !' : (scoreJ1 < scoreJ2) ? 'Player 2 won !' : 'Tie !' }} </h3>
+        <h3 class="textStyle">Player 1 : {{ scoreJ1 }} / Player 2 : {{ scoreJ2 }}</h3>
+        <ion-button class="btnQuizz" fill="outline" routerLink="/quizz">New Quiz</ion-button>	
+        <ion-button class="btnQuizz" fill="outline" routerLink="/home">Home</ion-button>	
+    </div>
 </div>
