@@ -95,13 +95,30 @@ export class GeoguesserPage implements OnInit {
     var southWest = L.latLng(-88.78704664025176, -251.74770753818228),
     northEast = L.latLng(88.78704664025176, 251.74770753818228),
     bounds = L.latLngBounds(southWest, northEast);
+
     if (!this.map) this.map = new Map('map').setView([46.714410227897154, 3.459646574278397], 3).setMaxBounds(bounds);
+
+
+    //satellite francais
     tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
       noWrap: true,
       minZoom: 2,
       subdomains:['mt0','mt1','mt2','mt3']
     }).addTo(this.map);
 
+    //satellite anglais
+    /*tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      noWrap: true,
+      minZoom: 2
+    }).addTo(this.map);
+    tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-hybrid/{z}/{x}/{y}{r}.{ext}', {
+      noWrap: true,
+      minZoom: 2,
+      subdomains: 'abcd',
+      ext: 'png'
+    }).addTo(this.map);*/
+
+    //street map
     //tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}').addTo(this.map);
   }
 
