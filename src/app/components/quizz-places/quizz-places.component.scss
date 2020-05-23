@@ -4,12 +4,18 @@
 
     .alignCenter {
         text-align: center;
+
+        img {
+            max-width: 85%;
+        }
     }
 
     .infoText {
         font-family: 'Segoe Script';
         color: orange;
         font-size: 40px;
+        margin: 0;
+        padding: 15px;
     }
 
     .marginLogo {

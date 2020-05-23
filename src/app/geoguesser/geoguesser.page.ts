@@ -100,23 +100,11 @@ export class GeoguesserPage implements OnInit {
 
 
     //satellite francais
-    tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+    tileLayer('http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',{
       noWrap: true,
       minZoom: 2,
       subdomains:['mt0','mt1','mt2','mt3']
     }).addTo(this.map);
-
-    //satellite anglais
-    /*tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-      noWrap: true,
-      minZoom: 2
-    }).addTo(this.map);
-    tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-hybrid/{z}/{x}/{y}{r}.{ext}', {
-      noWrap: true,
-      minZoom: 2,
-      subdomains: 'abcd',
-      ext: 'png'
-    }).addTo(this.map);*/
 
     //street map
     //tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}').addTo(this.map);

@@ -1,27 +1,29 @@
 #choosePage {
     background-color: #0F719E !important;
     height: 100%;
-}
 
-.btnQuizz {
-    font-size: 17px;
-    --border-radius: 0;
-    --border-width: 1px;
-    width: 20%;
-    height: 20vh;
-    transition: transform .6s ease-in-out;
+    .buttons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
 
-    &:hover {
-        transform: scale(1.2);
-        --background: #FFB405;
-        color: white;
-        --border-radius: 10px !important;
+        .btnQuizz {
+            font-size: 17px;
+            --border-radius: 0;
+            --border-width: 1px;
+            width: 200px;
+            height: 100px;
+            margin: 5px 20px 5px 20px;
+            transition: transform .6s ease-in-out;
+        
+            &:hover {
+                transform: scale(1.2);
+                --background: #FFB405;
+                color: white;
+                --border-radius: 10px !important;
+            }
+        }
     }
-}
-
-.btnCountrie {
-    margin-right: 5%;
-    margin-left: 5%;
 }
 
 #titleChoose {
