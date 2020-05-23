@@ -14,36 +14,10 @@ export class RecordService {
   public getRecordById(id: string): Observable<any> {
     return this.http.get('https://data.opendatasoft.com/api/v2/catalog/datasets/world-heritage-list%40public-us/records/' + id);
   }
-  
-  public getRecords(rows: number = 100): Observable<any> {
-    return this.http.get('https://data.opendatasoft.com/api/v2/catalog/datasets/world-heritage-list%40public-us/records?rows=' + rows);
-  }
 
   public getRecordsByCountry(country: string): Observable<any> {
     return this.http.get('https://data.opendatasoft.com/api/v2/catalog/datasets/world-heritage-list%40public-us/records?refine=states%3A' + country + '&rows=100');
   }
-
-  public getCountries(): Observable<any> {
-    return this.http.get('https://data.opendatasoft.com/api/v2/catalog/datasets/world-heritage-list%40public-us/facets?facet=states');
-  }
-
-  public getImage(id: string) {
-    const headers = new HttpHeaders().set("Origin", "*");
-      this.http.get('https://cors-anywhere.herokuapp.com/https://whc.unesco.org/en/list/124/gallery/&maxrows=1', {headers}).subscribe(
-        data => console.log('success', data),
-        error => {
-          console.log('oops', error.error.text);
-        var el = document.createElement( 'html' );
-    el.innerHTML = error.error.text;
-    let imgs = el.getElementsByClassName('icaption-img');
-    for (let k = 0; k < imgs.length; k++) {
-        console.log(imgs[k].getAttribute('data-src'));
-    }
-  }
-      );
-  }
-
-
 
   public getAllRecords(): void {
     for (let i = 0; i <= 11; i++) {
@@ -60,5 +34,8 @@ export class RecordService {
     })
   }
 
-  
+  public getImage(id: string): Observable<any> {
+    const headers = new HttpHeaders().set("Origin", "*");
+    return this.http.get('https://cors-anywhere.herokuapp.com/https://whc.unesco.org/en/list/' + id +'/gallery/&maxrows=1', {headers});
+  } 
 }

@@ -1,39 +1,37 @@
 <ion-content>
-
-  <div id="container" style="height: 100%; background: linear-gradient(#1F8EC3, #0F719E);">
-
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-button routerLink="/home" style="text-align: left;">Retour</ion-button>
-        </ion-col>
-        <ion-col>
-          <h1 class="titre">GeoGuesser</h1>
-        </ion-col>
-        <ion-col>
-          <h2 *ngIf="round != 6" class="round">Round {{round}}/5</h2>
-        </ion-col>
-      </ion-row>
-      <ion-row *ngIf="round != 6" style="height: 88vh;">
-        <ion-col style="padding: 10px;">
-          <img class="img-map" src="https://whc.unesco.org/uploads/sites/{{record?.record.fields.image_url.filename}}" alt="Random picture">
-          <div id="map" style="width: 100%; height: 100%;"></div>
-          <ion-button *ngIf="btn" (click)="valider()" class="btn-valider">Valider</ion-button>
-          <div *ngIf="afficheScore" class="score" style="color: black;">
-            <b>Vous êtes à {{distance}} km de distance, vous avez gagné {{score}} points</b><br>
-            <ion-button (click)="suivant()">Suivant</ion-button>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row *ngIf="round == 6" style="margin-top: 100px;">
-        <div class="titre" style="width: 100%;">
-          <h1>Votre score total est de {{scoreTotal}} points !<br></h1>
-          <ion-button (click)="rejouer()">Rejouer</ion-button>
-        </div>
-      </ion-row>
-    </ion-grid>
-    
-
-  </div>
-
+	<div id="container">
+		<ion-grid>
+			<ion-row>
+				<ion-col class="ion-text-start">
+					<ion-button routerLink="/home">Home</ion-button>
+				</ion-col>
+				<ion-col>
+					<h1>GeoGuesser</h1>
+				</ion-col>
+				<ion-col class="ion-text-center ion-align-self-center">
+					<h2 *ngIf="round != 6">Round {{round}}/5</h2>
+				</ion-col>
+			</ion-row>
+			<ion-row *ngIf="round != 6" class="row-map">
+				<div class="image-round">
+					<ion-spinner name="circles" *ngIf="loading"></ion-spinner>
+					<img (click)="imageZoom()" [ngClass]="{'img-no-zoom': !zoom}" src="{{imageUrl}}" alt="Random picture" *ngIf="!loading">
+				</div>
+				<div id="map"></div>
+				<div class="buttons">
+					<ion-button *ngIf="btn" (click)="valider()" class="btn-valider">Validate</ion-button>
+					<div *ngIf="afficheScore" class="score" style="color: black;">
+						<b>You are at {{distance}} km of the location, you won {{score}} points</b><br>
+						<ion-button (click)="suivant()">Next</ion-button>
+					</div>
+				</div>
+			</ion-row>
+			<ion-row *ngIf="round == 6" style="margin-top: 100px;">
+				<ion-col class="ion-text-center ion-align-self-center">
+					<h1>Your score is {{scoreTotal}} points !</h1>
+					<ion-button (click)="rejouer()">Play again</ion-button>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
 </ion-content>

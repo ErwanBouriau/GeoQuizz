@@ -3,6 +3,7 @@ import { RandomService } from 'src/app/services/random.service';
 import { ActivatedRoute } from '@angular/router';
 import { Country } from 'src/app/classes/country';
 import { StorageService } from 'src/app/services/storage.service';
+import { RecordService } from 'src/app/services/record.service';
 
 @Component({
   selector: 'app-quizz-duel',
@@ -18,8 +19,10 @@ export class QuizzDuelComponent implements OnInit {
   public scoreJ1: number; // le nombre de bonnes réponses du joueur 1 dans la partie
   public scoreJ2: number; // le nombre de bonnes réponses du joueur 2 dans la partie
   public difficulte: number;
+  public imageUrl: string = '';
+  public loading: boolean = true;
 
-  constructor(private _randomService: RandomService, private _storageService: StorageService, private route: ActivatedRoute) {
+  constructor(private _randomService: RandomService, private _recordService: RecordService, private _storageService: StorageService, private route: ActivatedRoute) {
     // on récupère les paramètres dans la route 
     route.queryParams.subscribe(params => {
       if (params.difficulty) this.difficulte = params.difficulty;
@@ -41,6 +44,7 @@ export class QuizzDuelComponent implements OnInit {
     this.tourJoueur = 1;
     this.questions = this._randomService.randomRecords(this._storageService.getItem('records'), 10);
     this.questionCourrante = this.questions[0];
+    this.loadImage(this.questionCourrante.record.fields.id_number);
     console.log('questions =>', this.questions);
     console.log('questions courrante =>', this.questionCourrante);
     this.generateReponses();
@@ -70,6 +74,7 @@ export class QuizzDuelComponent implements OnInit {
       this.manche++;
       if (this.manche < 10) {
         this.questionCourrante = this.questions[this.manche];
+        this.loadImage(this.questionCourrante.record.fields.id_number);
         this.generateReponses();
         this.tourJoueur = 1;
       }
@@ -91,6 +96,23 @@ export class QuizzDuelComponent implements OnInit {
       // on mélange le tableau de réponses
       this._randomService.melangeTableau(this.reponses);
       console.log('reponse =>', this.reponses);
+  }
+
+  loadImage(id: string) {
+    // on affiche le loader
+    this.loading = true;
+    // on récupère l'image du lieu
+    this._recordService.getImage(id).subscribe(
+      data => console.log('success', data),
+      error => {
+        // on récupère la page html dans l'erreur (on attend du json sauf que c'est du html, pas réussi à changer ça)
+        let domparser = new DOMParser()​​
+        let doc = domparser.parseFromString(error.error.text, 'text/html')
+        let imgs = doc.getElementsByClassName('icaption-img');
+        this.imageUrl = 'https://whc.unesco.org' + imgs[0].getAttribute('data-src');
+        // une fois l'image chargée on enlève le loader
+        this.loading = false;
+      });
   }
 
 }

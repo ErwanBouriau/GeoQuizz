@@ -3,8 +3,10 @@
         <h2 class="infoText">Round {{ manche + 1 }} / 10 </h2>
         <h2 class="textStyle">Player {{ tourJoueur }}'s turn </h2>
 
-        <img src="https://whc.unesco.org/uploads/sites/{{questionCourrante?.record.fields.image_url.filename}}">
-        <p>{{ questionCourrante?.record.fields.site }}</p>
+<img src="{{imageUrl}}" *ngIf="!loading">
+<ion-spinner name="circles" *ngIf="loading"></ion-spinner>
+
+<p>{{ questionCourrante?.record.fields.site }}</p>
 
         <ion-button *ngFor="let rep of reponses" (click)="validate(rep.value)">{{rep.value}}</ion-button>
         <ion-button routerLink="/home" color="danger">Home</ion-button>	
