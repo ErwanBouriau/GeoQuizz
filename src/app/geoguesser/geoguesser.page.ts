@@ -98,7 +98,6 @@ export class GeoguesserPage implements OnInit {
 
     if (!this.map) this.map = new Map('map').setView([46.714410227897154, 3.459646574278397], 3).setMaxBounds(bounds);
 
-
     //satellite francais
     tileLayer('http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',{
       noWrap: true,
@@ -121,8 +120,16 @@ export class GeoguesserPage implements OnInit {
     this.randomRecord();
   }
 
-  rejouer() {
-    window.location.reload();
+  restart() {
+    this.round = 1;
+    this.scoreTotal = 0;
+    this.afficheScore = false;
+    this.map = null;
+    setTimeout(() => {
+      this.showMap();
+      this.map.on('click', (e)=>{this.onMapClick(e)});
+    });
+    this.randomRecord();
   }
 
   calculateDistance(lat1:number, long1:number, lat2:number, long2:number){
