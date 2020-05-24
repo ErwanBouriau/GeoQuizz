@@ -51,7 +51,8 @@ export class QuizzPlacesComponent implements OnInit {
     this.generateReponses();
   }
 
-  validate(reponse) {
+  validate(event, reponse) {
+    event.target.classList.add('clicked');
     this.repondu = true;
     if (this.questionCourrante.record.fields.states.indexOf(reponse) >= 0) {
       this.bonneReponses++;

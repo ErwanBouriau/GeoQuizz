@@ -13,7 +13,7 @@
     </div>
 
     <div class="alignCenter">
-        <ion-button *ngFor="let rep of reponses" (click)="validate(rep.value)" [disabled]="repondu">{{rep.value}}</ion-button>
+        <ion-button *ngFor="let rep of reponses" (click)="validate($event, rep.value)" [disabled]="repondu">{{rep.value}}</ion-button>
 
         <ion-button (click)="nextRound()" *ngIf="repondu && manche <= 9" color="success">{{ (manche < 9) ? 'next' : 'end'}}</ion-button>
         <ion-button routerLink="/home" color="danger">Home</ion-button>
