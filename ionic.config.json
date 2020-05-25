@@ -1,7 +1,8 @@
 {
   "name": "GeoQuizz",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

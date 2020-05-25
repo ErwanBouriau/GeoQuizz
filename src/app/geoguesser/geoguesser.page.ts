@@ -100,7 +100,7 @@ export class GeoguesserPage implements OnInit {
 
 
     //satellite francais
-    tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+    tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
       noWrap: true,
       minZoom: 2,
       subdomains:['mt0','mt1','mt2','mt3']
